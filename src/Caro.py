@@ -6,7 +6,7 @@ import copy
 AI = 'O'
 HUMAN = 'X'
 EMPTY = '_'
-MAX_DEPTH = 3
+MAX_DEPTH = 2
 XP = HUMAN # X_PIECE
 OP = AI
 
