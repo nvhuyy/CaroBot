@@ -42,9 +42,9 @@ def evaluate(board, turn):
 def evaluate_for_x_o(board, turn):
 
     if isWin(XP):
-        return float('inf'), 0 # vô cực - 0
+        return float('inf'), 0
     elif isWin(OP):
-        return 0, float('inf') # 0 - vô cực
+        return 0, float('inf')
     elif is_board_full():
         return 0, 0
 
@@ -59,13 +59,13 @@ def evaluate_for_x_o(board, turn):
 
 def calc_eval_by_direction(board, turn, direction):
 
-    explored = set() # tạo tập rỗng các ô đã đánh
+    explored = set()
     eval_x = 0
     eval_o = 0
     for row in range(size):
         for column in range(size):
             if ((row, column) in explored) or (board[row][column] == EMPTY):
-                continue # xét luôn ô tiếp
+                continue
             chain = find_chain(board, (row, column), direction)
             for pos in chain['chain']:
                 explored.add(pos)
@@ -84,7 +84,6 @@ def calculation_chain(before:int, chain:int, after:int, is_current_turn:bool)  -
         if (before + chain) >= numToWin and (after+chain) >= numToWin:
             return 10**9 if is_current_turn else 10**8
         else:
-            # Sửa điểm này cho HUMAN cao lên để AI ưu tiên chặn
             return 10**9 if is_current_turn else 10**5
 
     # 2 left to win
@@ -492,9 +491,9 @@ def click(y,x):
                 print("winner is ", winner)
                 winWindow()
                 return
-            if level == 1:
+            if level == 2:
                 AI_move = decide_move(board, AI, MAX_DEPTH)
-            else:
+            elif level == 1:
                 AI_move = find_best_move()
             AI_x = AI_move[0]
             AI_y = AI_move[1]
@@ -1038,7 +1037,7 @@ if __name__ == "__main__" :
     tk.Label(root, text="Size of board:").pack()
     size_entry = tk.Entry(root)
     size_entry.pack()
-    tk.Label(root, text="Level (1, 2 or 3):").pack() # 1: normal minimax, 2: greedy, 3: priority queue + minimax
+    tk.Label(root, text="Level (1, 2 or 3):").pack() # 1: greedy, 2: normal minimax, 3: priority queue + minimax
     level_entry = tk.Entry(root)
     level_entry.pack()
     tk.Button(root, text="OK", command=closeInputWindow).pack()
